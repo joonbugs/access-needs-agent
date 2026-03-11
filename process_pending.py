@@ -2,60 +2,38 @@
 from __future__ import annotations
 
 import shutil
+import sys
 from pathlib import Path
-from typing import Iterable, Iterator, Tuple
 
-
-def _iter_srt_blocks(lines: Iterable[str]) -> Iterator[list[str]]:
-    block: list[str] = []
-    for raw in lines:
-        line = raw.rstrip("\n")
-        if line.strip() == "":
-            if block:
-                yield block
-                block = []
-            continue
-        block.append(line)
-    if block:
-        yield block
-
-
-def _parse_speaker_and_text(content_lines: list[str]) -> Tuple[str, str]:
-    text = " ".join([ln.strip() for ln in content_lines if ln.strip() != ""]).strip()
-    if text.startswith("[") and "]" in text:
-        end = text.find("]")
-        speaker = text[1:end].strip()
-        rest = text[end + 1 :].strip()
-        return speaker, rest
-    return "unknown", text
+from srt_validation import ValidationError, parse_and_validate_srt, validate_file_level
 
 
 def main() -> int:
     pending_dir = Path("input") / "pending"
     processed_dir = Path("input") / "processed"
+    failed_dir = Path("input") / "failed"
     processed_dir.mkdir(parents=True, exist_ok=True)
+    failed_dir.mkdir(parents=True, exist_ok=True)
 
     for file_path in sorted(pending_dir.iterdir(), key=lambda p: p.name):
         if file_path.suffix.lower() != ".srt":
             continue
 
-        with file_path.open("r", encoding="utf-8") as f:
-            lines = list(f)
-
         file_name = file_path.name
+        try:
+            validate_file_level(file_path, pending_dir=pending_dir)
+            captions = parse_and_validate_srt(file_path)
 
-        for block in _iter_srt_blocks(lines):
-            # Expected SRT block shape:
-            # 1) sequence number
-            # 2) timecodes
-            # 3+) subtitle text (we embed speaker like "[agent] hello")
-            if len(block) < 3:
-                continue
-            sequence = block[0].strip()
-            speaker, text = _parse_speaker_and_text(block[2:])
-            print(f"From {file_name} seq {sequence} agent {speaker} said {text}")
+            for cap in captions:
+                print(f"From {file_name} seq {cap.seq} agent {cap.speaker} said {cap.text}")
 
-        shutil.move(str(file_path), str(processed_dir / file_name))
+            shutil.move(str(file_path), str(processed_dir / file_name))
+        except ValidationError as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            shutil.move(str(file_path), str(failed_dir / file_name))
+        except Exception as e:
+            print(f"ERROR: unexpected failure processing '{file_name}': {e}", file=sys.stderr)
+            shutil.move(str(file_path), str(failed_dir / file_name))
 
     return 0
 
