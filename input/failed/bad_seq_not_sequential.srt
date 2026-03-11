@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:01,000
+[agent] First caption is fine.
+
+3
+00:00:01,200 --> 00:00:02,500
+[customer] This should be seq 2 but is 3.
+
