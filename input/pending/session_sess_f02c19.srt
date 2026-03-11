@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:05,400
+[customer] We saw duplicates in our transcript chunks. Could it be our uploader?
+
+2
+00:00:05,500 --> 00:00:10,800
+[agent] Possibly. Are retries sending the same chunk_id again without an idempotency key?
+
+3
+00:00:10,900 --> 00:00:16,200
+[customer] Yes — if the request times out we retry immediately with the same payload.
+
+4
+00:00:16,300 --> 00:00:22,200
+[agent] That explains it. Add an idempotency key per chunk and dedupe on ingest.
+
+5
+00:00:22,300 --> 00:00:27,500
+[customer] Makes sense. We’ll implement that and rerun our load test.
+

@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:03,800
+[customer] Hey! Quick question before we start — is this being recorded?
+
+2
+00:00:03,900 --> 00:00:07,600
+[agent] Yes, with your permission. We can also pause or stop at any time.
+
+3
+00:00:07,700 --> 00:00:12,900
+[customer] Great. We mainly want help cleaning up our event pipeline and retries.
+
+4
+00:00:13,000 --> 00:00:18,200
+[agent] Understood. Where do events get dropped today — client, server, or queue?
+
+5
+00:00:18,300 --> 00:00:24,500
+[customer] Mostly at the queue consumer when we hit rate limits, then it snowballs.
+

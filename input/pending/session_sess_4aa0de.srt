@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:04,200
+[agent] Thanks for joining. Can you describe the current onboarding flow end-to-end?
+
+2
+00:00:04,300 --> 00:00:09,700
+[customer] Users sign up, then we send them to three separate setup pages.
+
+3
+00:00:09,800 --> 00:00:14,400
+[agent] What’s the biggest point of confusion in those pages?
+
+4
+00:00:14,500 --> 00:00:20,000
+[customer] Permissions. People aren’t sure which role to pick, so they abandon.
+
+5
+00:00:20,100 --> 00:00:24,600
+[agent] Got it. We can simplify roles and delay advanced options until later.
+

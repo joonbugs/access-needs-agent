@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:06,000
+[customer] Can you hear me okay? I think my microphone was cutting out earlier.
+
+2
+00:00:06,200 --> 00:00:13,000
+[agent] Yes, you’re coming through clearly now. What did you want to cover first?
+
+3
+00:00:13,200 --> 00:00:20,500
+[customer] I'd like to understand how your system handles transcript chunks and what gets stored.
+

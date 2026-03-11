@@ -1,0 +1,12 @@
+1
+00:00:00,000 --> 00:00:05,000
+[customer] Hi, thanks for taking the call today.
+
+2
+00:00:05,200 --> 00:00:11,500
+[agent] Of course. To start, can you share what you're hoping to accomplish?
+
+3
+00:00:11,700 --> 00:00:17,800
+[customer] We're trying to reduce onboarding time and make the workflow less confusing.
+
