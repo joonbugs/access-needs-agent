@@ -152,6 +152,5 @@ def parse_and_validate_srt(file_path: Path) -> list[Caption]:
         captions.append(Caption(seq=seq, start_ms=start_ms, end_ms=end_ms, speaker=speaker, text=text))
         expected_seq += 1
 
-    print("Successfully validated")
     return captions
 

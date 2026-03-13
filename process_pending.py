@@ -5,6 +5,8 @@ import shutil
 import sys
 from pathlib import Path
 
+from business_logic import run_business_logic
+from openai_service import OpenAIConfigError
 from srt_validation import ValidationError, parse_and_validate_srt, validate_file_level
 
 
@@ -24,13 +26,18 @@ def main() -> int:
             validate_file_level(file_path, pending_dir=pending_dir)
             captions = parse_and_validate_srt(file_path)
 
-            for cap in captions:
-                print(f"From {file_name} seq {cap.seq} agent {cap.speaker} said {cap.text}")
+            result = run_business_logic(file_name=file_name, captions=captions)
+            print(f"Business result from {file_name}: {result.summary}")
 
             shutil.move(str(file_path), str(processed_dir / file_name))
         except ValidationError as e:
             print(f"ERROR: {e}", file=sys.stderr)
             shutil.move(str(file_path), str(failed_dir / file_name))
+        except OpenAIConfigError as e:
+            # Config problems (missing key/deps) shouldn't mark transcripts as "failed".
+            print(f"ERROR: OpenAI configuration: {e}", file=sys.stderr)
+            print("Fix your OpenAI setup and re-run; leaving files in pending.", file=sys.stderr)
+            return 2
         except Exception as e:
             print(f"ERROR: unexpected failure processing '{file_name}': {e}", file=sys.stderr)
             shutil.move(str(file_path), str(failed_dir / file_name))
