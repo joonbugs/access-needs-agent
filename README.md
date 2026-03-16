@@ -39,3 +39,11 @@ Then run:
 ```bash
 python3 process_pending.py
 ```
+
+### Run (watch / continuous polling)
+
+To continuously process transcripts as they arrive:
+
+```bash
+python3 process_pending.py --watch --poll-seconds 2
+```
