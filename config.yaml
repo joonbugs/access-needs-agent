@@ -1,0 +1,35 @@
+session_id: "meeting_001"
+
+audio:
+  mode: "live"            # "live" or "file"
+  device_index: null      # null = default; or integer for specific device
+  sample_rate: 16000
+  channels: 1             # set to number of input channels your device supports
+  chunk_size: 4096        # frames per read
+  file_path: null         # path to multi-channel WAV (set via CLI or here)
+  file_playback_speed: "realtime"  # "realtime" or "fast"
+
+speakers:
+  - "Speaker A"
+
+asr:
+  provider: "deepgram"
+  model: "nova-3"
+  language: "en-US"
+  interim_results: true
+  smart_format: true
+  utterance_end_ms: 1500
+  endpointing_ms: 300
+  reconnect_attempts: 3
+  reconnect_backoff_base: 1.0
+
+downmix:
+  ghost_confidence_threshold: 0.7
+  overlap_strategy: "separate"  # "separate" or "merged"
+
+output:
+  output_dir: "./output"
+  pending_dir: "./pending"
+  flush_interval: 5.0
+  write_per_speaker: true
+  write_unified: true

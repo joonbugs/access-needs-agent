@@ -1,0 +1,14 @@
+.venv/
+.DS_Store
+.claude/
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.env
+.pytest_cache/
+output/*
+!output/.gitkeep
+pending/*
+!pending/.gitkeep
