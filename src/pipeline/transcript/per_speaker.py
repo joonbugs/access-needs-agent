@@ -43,7 +43,7 @@ class PerSpeakerTranscript:
                     index=i,
                     start=timedelta(seconds=u.start),
                     end=timedelta(seconds=u.end),
-                    content=u.transcript,
+                    content=f"[{self.speaker_label}] {u.transcript}",
                 )
             )
         return entries

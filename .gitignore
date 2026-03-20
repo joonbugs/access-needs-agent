@@ -12,3 +12,7 @@ output/*
 !output/.gitkeep
 pending/*
 !pending/.gitkeep
+processed/*
+!processed/.gitkeep
+failed/*
+!failed/.gitkeep

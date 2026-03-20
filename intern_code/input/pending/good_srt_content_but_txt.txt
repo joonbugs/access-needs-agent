@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:02,000
+[agent] This content is valid SRT, but the file extension is .txt.
+
+2
+00:00:02,200 --> 00:00:04,000
+[customer] Your code should skip this file because it is not .srt.
+

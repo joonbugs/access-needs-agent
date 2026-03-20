@@ -16,6 +16,7 @@ dependencies = [
     "pydantic>=2.5",
     "pyyaml>=6.0",
     "python-dotenv>=1.0",
+    "openai>=1.0",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +27,7 @@ dev = [
 
 [project.scripts]
 pipeline = "pipeline.main:cli"
+watcher = "watcher.process_pending:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
