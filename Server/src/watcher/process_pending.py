@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import time
 import shutil
 import sys
 from pathlib import Path
@@ -11,6 +13,24 @@ from .business_logic import run_business_logic
 from .openai_service import OpenAIConfigError
 from .pending_watcher import WatchConfig, watch_forever
 from .srt_validation import ValidationError, parse_and_validate_srt, validate_file_level
+
+
+def _project_root() -> Path:
+    # watcher/ -> src/ -> Server/
+    return Path(__file__).resolve().parent.parent.parent
+
+
+def _append_analysis_event(*, file_name: str, summary: str) -> None:
+    analysis_dir = _project_root() / "analysis"
+    analysis_dir.mkdir(parents=True, exist_ok=True)
+    events_path = analysis_dir / "events.jsonl"
+    event = {
+        "ts": time.time(),
+        "file_name": file_name,
+        "summary": summary,
+    }
+    with events_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(event, ensure_ascii=False) + "\n")
 
 
 def process_pending_once(*, pending_dir: Path, processed_dir: Path, failed_dir: Path) -> int:
@@ -29,6 +49,7 @@ def process_pending_once(*, pending_dir: Path, processed_dir: Path, failed_dir: 
 
             result = run_business_logic(file_name=file_name, captions=captions)
             print(f"Business result from {file_name}: {result.summary}")
+            _append_analysis_event(file_name=file_name, summary=result.summary)
 
             shutil.move(str(file_path), str(processed_dir / file_name))
         except ValidationError as e:

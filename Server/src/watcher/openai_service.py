@@ -16,28 +16,40 @@ def _load_env_once() -> None:
     if _DOTENV_LOADED:
         return
 
-    # Load `.env` from project root (two levels up from this file).
-    dotenv_path = Path(__file__).resolve().parent.parent.parent / ".env"
+    # Prefer Server/.env, but also support repo-root .env (since this repo can be
+    # structured as <repo>/{Server,Client}).
+    server_root = Path(__file__).resolve().parent.parent.parent
+    repo_root = server_root.parent
+    dotenv_paths = [
+        server_root / ".env",
+        repo_root / ".env",
+    ]
     try:
         from dotenv import load_dotenv  # type: ignore
 
-        load_dotenv(dotenv_path=dotenv_path)
+        for p in dotenv_paths:
+            if p.exists():
+                load_dotenv(dotenv_path=p)
     except Exception:
-        try:
-            if dotenv_path.exists():
-                for raw in dotenv_path.read_text(encoding="utf-8").splitlines():
+        for p in dotenv_paths:
+            try:
+                if not p.exists():
+                    continue
+                for raw in p.read_text(encoding="utf-8").splitlines():
                     line = raw.strip()
                     if not line or line.startswith("#") or "=" not in line:
                         continue
                     k, v = line.split("=", 1)
                     key = k.strip()
                     val = v.strip()
-                    if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+                    if (val.startswith('"') and val.endswith('"')) or (
+                        val.startswith("'") and val.endswith("'")
+                    ):
                         val = val[1:-1]
                     if key and key not in os.environ:
                         os.environ[key] = val
-        except Exception:
-            pass
+            except Exception:
+                continue
 
     _DOTENV_LOADED = True
 

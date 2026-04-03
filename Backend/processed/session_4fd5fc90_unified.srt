@@ -1,8 +1,0 @@
-1
-00:00:01,200 --> 00:00:01,600
-[Speaker A] Hello.
-
-2
-00:00:08,920 --> 00:00:11,000
-[Speaker A] Why is there two speaker eight output?
-

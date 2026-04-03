@@ -16,3 +16,14 @@ processed/*
 !processed/.gitkeep
 failed/*
 !failed/.gitkeep
+
+# Server runtime outputs (new layout)
+Server/output/*
+Server/pending/*
+Server/processed/*
+Server/failed/*
+Server/analysis/*
+
+# Client
+Client/node_modules/
+Client/dist/

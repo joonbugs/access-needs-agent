@@ -10,7 +10,13 @@ import yaml
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
-load_dotenv()
+_THIS_SERVER_ROOT = Path(__file__).resolve().parent.parent.parent  # Server/
+_REPO_ROOT = _THIS_SERVER_ROOT.parent
+
+# Load env from Server/.env or repo-root .env. (No override: exported env wins.)
+for _p in (_THIS_SERVER_ROOT / ".env", _REPO_ROOT / ".env"):
+    if _p.exists():
+        load_dotenv(dotenv_path=_p)
 
 
 class AudioConfig(BaseModel):

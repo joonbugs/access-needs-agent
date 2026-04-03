@@ -31,12 +31,21 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-Copy `.env.example` to `.env` and add your Deepgram API key:
+Copy `.env.example` to `.env` and add your API keys:
 
 ```bash
 cp .env.example .env
-# Edit .env with your key
+# Edit .env with your keys:
+# - DEEPGRAM_API_KEY=...
+# - OPENAI_API_KEY=...
 ```
+
+Where should `.env` live?
+
+- If you run commands from `Server/`, put it in `Server/.env`
+- If you run from the repo root, put it in `<repo>/.env`
+
+The backend code will try **both locations**.
 
 ## Usage
 

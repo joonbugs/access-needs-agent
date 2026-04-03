@@ -1,0 +1,134 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 24px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 80%, var(--code-bg) 20%);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #9ca3af;
+}
+
+.dot.ok {
+  background: #16a34a;
+}
+
+.dot.bad {
+  background: #dc2626;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.content {
+  display: flex;
+  flex: 1 1 auto;
+  padding: 18px 24px 32px;
+}
+
+.panel {
+  width: 100%;
+  text-align: left;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.meta {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 14px 12px;
+  background: color-mix(in srgb, var(--bg) 85%, var(--code-bg) 15%);
+  box-shadow: var(--shadow);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.file {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-h);
+}
+
+.time {
+  font-family: var(--mono);
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.summary {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  white-space: pre-wrap;
+  color: var(--text-h);
+}
+
+.empty {
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  opacity: 0.9;
+}
+
+.error {
+  margin: 16px 24px 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--text-h);
+  border-radius: 12px;
+  text-align: left;
+  font-size: 14px;
+}
